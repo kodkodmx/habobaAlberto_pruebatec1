@@ -1,19 +1,24 @@
 package com.softek.habobaalberto_pruebatec1;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import logica.Empleado;
+import persistencia.ControladoraPersistencia;
 
 public class HabobaAlberto_pruebatec1 {
 
     public static void main(String[] args) {
         
+           
         Scanner teclado = new Scanner(System.in);
-        String nombre;
-        String apellido;
-        String cargo;
-        double salario;
+        String nombre = null;
+        String apellido = null;
+        String cargo = null;
+        BigDecimal salario = null;
+        LocalDate fechaIngreso = null;
         boolean salir = false;
         
         while (!salir) {
@@ -48,7 +53,7 @@ public class HabobaAlberto_pruebatec1 {
                             } 
                             else if (nombre.matches("^[a-zA-Z]+$")) {
                                 nombreValido = true;
-                                System.out.println("Nombre ingresado correctamente.");
+                                System.out.println("Nombre ingresado correctamente: " + nombre);
                             } else {
                                 System.out.println("El nombre solo puede incluir letras. Intente nuevamente.");
                             }
@@ -65,7 +70,7 @@ public class HabobaAlberto_pruebatec1 {
                             } 
                             else if (apellido.matches("^[a-zA-Z]+$")) {
                                 apellidoValido = true;
-                                System.out.println("Apellido ingresado correctamente.");
+                                System.out.println("Apellido ingresado correctamente: " + apellido);
                             } else {
                                 System.out.println("El apellido solo puede incluir letras. Intente nuevamente.");
                             }
@@ -81,22 +86,20 @@ public class HabobaAlberto_pruebatec1 {
                                 System.out.println("El cargo no puede estar vacío. Intente nuevamente.");
                             } else {
                                 cargoValido = true;
-                                System.out.println("Cargo ingresado correctamente.");
+                                System.out.println("Cargo ingresado correctamente: " + cargo);
                             }
                         }
-
-                        //salario = 0;
                         boolean salarioValido = false;
                         while (!salarioValido) {
                             System.out.print("Ingrese el salario del empleado: ");
-                            if (teclado.hasNextDouble()) {
-                                salario = teclado.nextDouble();
-                                if (salario <= 0) {
+                            if (teclado.hasNextFloat()) {
+                                salario = teclado.nextBigDecimal();
+                                if (salario.compareTo(BigDecimal.ZERO) <= 0) {
                                     System.out.println("El salario debe ser mayor a 0. Intente nuevamente.");
                                 } else {
                                     salarioValido = true;
                                     teclado.nextLine();
-                                    System.out.println("Salario ingresado correctamente.");
+                                    System.out.println("Salario ingresado correctamente: " + salario);
                                 }
                             } else {
                                 System.out.println("El salario debe ser un número válido. Intente nuevamente.");
@@ -106,18 +109,21 @@ public class HabobaAlberto_pruebatec1 {
                         boolean fechaValida = false;
                         while (!fechaValida) {
                             System.out.print("Ingrese la fecha de ingreso del empleado (dd-MM-yyyy): ");
-                            String fechaIngreso = teclado.nextLine();
+                            String fechaTexto = teclado.nextLine();
 
                             try {
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                                java.sql.Date.valueOf(LocalDate.parse(fechaIngreso, formatter));
+                                fechaIngreso = LocalDate.parse(fechaTexto, formatter);
                                 fechaValida = true;
-                                System.out.println("Fecha de ingreso ingresada correctamente.");
+                                System.out.println("Fecha de ingreso ingresada correctamente: " + fechaIngreso);
                             } catch (DateTimeParseException e) {
                                 System.out.println("Formato de fecha incorrecto. Use dd-MM-yyyy. Intente nuevamente.");
                             }
                         }
-                        
+                        ControladoraPersistencia controlPersi = new ControladoraPersistencia();                      
+                        Empleado emp = new Empleado(1, nombre, apellido, cargo, salario, fechaIngreso);
+                        //System.out.println(emp);
+                        controlPersi.crearPersona(emp);
                         System.out.println("\n                                  ****************** E M P L E A D O  A G R E G A D O  C O N  E X I T O  *******************");
                         break;
                 
