@@ -4,15 +4,16 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import logica.Empleado;
 import persistencia.ControladoraPersistencia;
 
 public class HabobaAlberto_pruebatec1 {
 
-    public static void main(String[] args) {
-        
-           
+    public static void main(String[] args) {       
+
         Scanner teclado = new Scanner(System.in);
         String nombre = null;
         String apellido = null;
@@ -20,6 +21,10 @@ public class HabobaAlberto_pruebatec1 {
         BigDecimal salario = null;
         LocalDate fechaIngreso = null;
         boolean salir = false;
+        
+        List<Empleado> todos = new ArrayList<>();
+        ControladoraPersistencia controlPersi = new ControladoraPersistencia();
+        
         
         while (!salir) {
                 System.out.println("+---------------------------------------------+");
@@ -29,12 +34,12 @@ public class HabobaAlberto_pruebatec1 {
                 System.out.println("|                                             |   ### ##     ####   ### ###  ###  ##  ### ###  ### ###  ###  ##    ####   ### ##    ## ##    ## ##   ");
                 System.out.println("|     G E S T I O N  D E  E M P L E A D O S   |    ##  ##     ##     ##  ##    ## ##   ##  ##   ##  ##    ## ##     ##     ##  ##  ##   ##  ##   ##  ");
                 System.out.println("+---------------------------------------------+    ##  ##     ##     ##       # ## #   ##  ##   ##       # ## #     ##     ##  ##  ##   ##  ####     ");
-                System.out.println("|         1. Alta Empleado                    |    ## ##      ##     ## ##    ## ##    ##  ##   ## ##    ## ##      ##     ##  ##  ##   ##   #####   ");
-                System.out.println("|         2. Consultar Todos los Empleados    |    ##  ##     ##     ##       ##  ##   ### ##   ##       ##  ##     ##     ##  ##  ##   ##      ###  ");
-                System.out.println("|         3. Consultar un Empleado            |   ### ##     ####   ### ###  ###  ##     ##    ### ###  ###  ##    ####   ### ##    ## ##    ## ##   ");
-                System.out.println("|         4. Modificar Empleado               |");
-                System.out.println("|         5. Baja Empleado                    |");
-                System.out.println("|         6. Salir                            |");
+                System.out.println("|      1. Alta Empleado                       |    ## ##      ##     ## ##    ## ##    ##  ##   ## ##    ## ##      ##     ##  ##  ##   ##   #####   ");
+                System.out.println("|      2. Consultar Todos los Empleados       |    ##  ##     ##     ##       ##  ##   ### ##   ##       ##  ##     ##     ##  ##  ##   ##      ###  ");
+                System.out.println("|      3. Consultar Empleado por cargo        |   ### ##     ####   ### ###  ###  ##     ##    ### ###  ###  ##    ####   ### ##    ## ##    ## ##   ");
+                System.out.println("|      4. Modificar Empleado por ID           |");
+                System.out.println("|      5. Baja Empleado por ID                |");
+                System.out.println("|      6. Salir                               |");
                 System.out.println("+---------------------------------------------+");
                 System.out.print("Selecciona una opcion: ");
                 int opcion = teclado.nextInt();
@@ -120,27 +125,46 @@ public class HabobaAlberto_pruebatec1 {
                                 System.out.println("Formato de fecha incorrecto. Use dd-MM-yyyy. Intente nuevamente.");
                             }
                         }
-                        ControladoraPersistencia controlPersi = new ControladoraPersistencia();                      
+                              
+                        
                         Empleado emp = new Empleado(1, nombre, apellido, cargo, salario, fechaIngreso);
-                        //System.out.println(emp);
-                        controlPersi.crearPersona(emp);
+                        controlPersi.crearEmpleado(emp);
                         System.out.println("\n                                  ****************** E M P L E A D O  A G R E G A D O  C O N  E X I T O  *******************");
                         break;
                 
-                    case 2:
-                        System.out.println("case 2");
+                    case 2:         
+                        todos = controlPersi.traerTodos();
+                        for (Empleado empleado : todos) {
+                            System.out.println(empleado);  // Esto imprimirá la información del empleado, no de la lista
+                        }
                         break;
 
                     case 3:
-                        System.out.println("case 3");
+                        todos = controlPersi.traerTodos();
+                        cargoValido = false;
+                        while (!cargoValido) {
+                            System.out.print("Ingrese el cargo del empleado: ");
+                            cargo = teclado.nextLine();
+
+                            if (cargo.isEmpty()) {
+                                System.out.println("El cargo no puede estar vacío. Intente nuevamente.");
+                            } else {
+                                cargoValido = true;
+                                for (Empleado empleado : todos) {
+                                    if (empleado.getCargo().equalsIgnoreCase(cargo)){
+                                        System.out.println(empleado);
+                                    }
+                                }
+                            }
+                        }
                         break;
 
                     case 4:
-                        System.out.println("case 4");
+                        System.out.println("Modificar Empleado por ID");
                         break;
 
                     case 5:
-                        System.out.println("case 5");
+                        System.out.println("Baja Empleado por ID");
                         break;
 
                     case 6:
