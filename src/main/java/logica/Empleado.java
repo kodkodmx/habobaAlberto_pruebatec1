@@ -3,7 +3,6 @@ package logica;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,7 @@ public class Empleado implements Serializable {
     private String nombre;
     private String apellido;
     private String cargo;
-    @Column(precision = 10, scale = 2) // Necesario para evitar perdida de presicion.
+    @Column(precision = 10, scale = 2) // Necesario especificar como crear la columna para evitar perdida de presicion.
     private BigDecimal salario;
     private LocalDate fechaIngreso;
 

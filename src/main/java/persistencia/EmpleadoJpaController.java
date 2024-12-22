@@ -12,10 +12,7 @@ import javax.persistence.criteria.Root;
 import logica.Empleado;
 import persistencia.exceptions.NonexistentEntityException;
 
-/**
- *
- * @author betoh
- */
+
 public class EmpleadoJpaController implements Serializable {
     
     public EmpleadoJpaController() {
