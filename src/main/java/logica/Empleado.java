@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Empleado implements Serializable {
-        
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -93,5 +93,5 @@ public class Empleado implements Serializable {
         sb.append(" y percibe un salario de $").append(salarioFormateado);
         sb.append(" desde el ").append(fechaIngreso);
         return sb.toString();
-    }    
+    }
 }

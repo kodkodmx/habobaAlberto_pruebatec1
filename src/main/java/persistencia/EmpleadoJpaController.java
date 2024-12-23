@@ -12,12 +12,11 @@ import javax.persistence.criteria.Root;
 import logica.Empleado;
 import persistencia.exceptions.NonexistentEntityException;
 
-
 public class EmpleadoJpaController implements Serializable {
-    
+
     public EmpleadoJpaController() {
         emf = Persistence.createEntityManagerFactory("pruebaTec1PU");
-      }
+    }
 
     public EmpleadoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -131,5 +130,5 @@ public class EmpleadoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
