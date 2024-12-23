@@ -4,12 +4,12 @@ Este proyecto es una aplicación de backend para la gestión de empleados de una
 
 ## Funcionalidades
 
+- **Menú ASCII interactivo:** Proporciona un menú atractivo para la interacción del usuario.
 - **Agregar un nuevo empleado:** Permite ingresar información sobre un nuevo empleado, incluyendo nombre, apellido, cargo, salario y fecha de inicio.
 - **Listar empleados:** Visualiza la lista de todos los empleados en la base de datos.
+- **Buscar empleados por cargo:** Busca empleados por su cargo y muestra una lista de los empleados que tienen ese cargo.
 - **Actualizar información de un empleado:** Modifica la información de un empleado existente.
 - **Eliminar un empleado:** Elimina un empleado de la base de datos.
-- **Buscar empleados por cargo:** Busca empleados por su cargo y muestra una lista de los empleados que tienen ese cargo.
-- **Menú ASCII interactivo:** Proporciona un menú atractivo para la interacción del usuario.
 
 ## Requisitos Técnicos
 
@@ -29,7 +29,7 @@ Este proyecto es una aplicación de backend para la gestión de empleados de una
 ## Configurar la base de datos:
 
 Asegúrate de tener una base de datos llamada empleados.
-Ejecuta el archivo empleados.sql para configurar las tablas necesarias.
+Ejecuta el archivo [empleados.sql](https://github.com/kodkodmx/habobaAlberto_pruebatec1/blob/46ae5780609ee553a57a638aeabcbb6e5dc6c387/empleado.sql) para configurar las tablas necesarias.
 
 ## Compilar el proyecto:
 
