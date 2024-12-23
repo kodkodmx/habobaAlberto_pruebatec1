@@ -1,6 +1,6 @@
 package ui;
 
-//Necesario para no perde precicion en la BD
+//Necesario para no perder precicion en la BD
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -13,8 +13,6 @@ import static ui.InterfazUsuario.mostrarOpcionInvalida;
 import static ui.InterfazUsuario.mostrarOpcionVacia;
 
 public class CapturaDatos {
-// private static final evitan errores ya que no se usa fuera de la clase, no se tiene que instanciar, y no se puede asignar a otra cosa.
-
     private static final Scanner teclado = new Scanner(System.in);
 
     public static Empleado capturarEmpleado() {
@@ -136,10 +134,15 @@ public class CapturaDatos {
             System.out.print("\nIngrese el cargo del empleado: ");
             cargo = teclado.nextLine();
 
-            if (cargo.isEmpty()) {
+            try {
+                if (cargo.isEmpty()) {
+                    throw new IllegalArgumentException("El cargo no puede estar vacío.");
+                } else {
+                    cargoValido = true;
+                }
+            } catch (IllegalArgumentException e) {
                 mostrarOpcionVacia();
-            } else {
-                cargoValido = true;
+                System.out.println(e.getMessage());
             }
         }
 

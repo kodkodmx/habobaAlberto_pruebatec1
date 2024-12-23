@@ -5,7 +5,7 @@ import persistencia.ControladoraPersistencia;
 import ui.CapturaDatos;
 import java.util.List;
 import java.util.Scanner;
-import ui.InterfazUsuario;
+import static ui.InterfazUsuario.mostrarOpcionInvalida;
 
 public class GestorEmpleados {
 
@@ -21,21 +21,24 @@ public class GestorEmpleados {
     public static List<Empleado> consultarPorCargo(String cargo, ControladoraPersistencia controlPersi) {
         List<Empleado> todos = controlPersi.traerTodos();
         List<Empleado> empleadosPorCargo = new ArrayList<>();
-        boolean cargoValido = false;
 
         for (Empleado empleado : todos) {
             if (empleado.getCargo().equalsIgnoreCase(cargo)) {
                 empleadosPorCargo.add(empleado);
-                cargoValido = true;
             }
         }
 
-        if (!cargoValido) {
-            InterfazUsuario.mostrarOpcionInvalida();
-            System.out.println("\n                                  *********************** C A R G O  N O  E N C O N T R A D O ***********************");
+        try {
+            if (empleadosPorCargo.isEmpty()) {
+                throw new CargoNoEncontradoException("Ningun empleado actualmente tiene el cargo de " + cargo);
+            }
+        } catch (CargoNoEncontradoException e) {
+            mostrarOpcionInvalida();
+            System.out.println(e.getMessage());
         }
 
         return empleadosPorCargo;
+
     }
 
     public static void modificarEmpleado(int id, ControladoraPersistencia controlPersi) {
@@ -57,11 +60,15 @@ public class GestorEmpleados {
                 } else {
                     System.out.println("\n                                  ****************** O P E R A C I O N  D E  M O D I F I C A C I O N  C A N C E L A D A *******************");
                 }
-            }
+            }            
         }
-        if (!empleadoEncontrado) {
-            InterfazUsuario.mostrarOpcionInvalida();
-            System.out.println("\n                                  *********************** E M P L E A D O  C O N  I D  " + id + "  N O  E N C O N T R A D O ***********************");
+        try{
+            if(!empleadoEncontrado){
+                throw new IDNoEncontradoException("Ningun empleado actualmente tiene el ID " + id);
+            }
+        }catch (IDNoEncontradoException e) {
+            mostrarOpcionInvalida();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -83,9 +90,26 @@ public class GestorEmpleados {
                 }
             }
         }
-        if (!empleadoEncontrado) {
-            InterfazUsuario.mostrarOpcionInvalida();
-            System.out.println("\n                                  ****************** E M P L E A D O  I D  " + id + "  N O   E N C O N T R A D O ***********************");
+        try{
+            if(!empleadoEncontrado){
+                throw new IDNoEncontradoException("Ningun empleado actualmente tiene el ID " + id);
+            }
+        }catch (IDNoEncontradoException e) {
+            mostrarOpcionInvalida();
+            System.out.println(e.getMessage());
         }
     }
+
+    public static class CargoNoEncontradoException extends RuntimeException {
+        public CargoNoEncontradoException(String mensaje) {
+            super(mensaje);
+        }
+
+    }
+    public static class IDNoEncontradoException extends RuntimeException {
+        public IDNoEncontradoException(String mensaje) {
+            super(mensaje);
+        }
+    }
+    
 }
