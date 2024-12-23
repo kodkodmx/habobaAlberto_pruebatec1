@@ -61,7 +61,6 @@ Puedes ejecutar la aplicación desde tu IDE favorito o desde la línea de comand
 - Se cumple con el extra de "La aplicación debe ser capaz de manejar errores y excepciones de manera apropiada, como la gestión de registros duplicados o la búsqueda de empleados que no existen, etc." ademas para la verificacion de formato correcto en salarios, fechas, ids y cargos.
 - Se cumple con principios de programacion como No te repitas (DRY), Manténlo simple (KISS), No lo vas a necesitar (YAGNI), SOLID, Separación de responsabilidades, Encapsulamiento, Modularidad, Abstracción, Principio de Pareto (80/20), Desarrollo guiado por pruebas (TDD), Consistencia, Programación defensiva, No sobreingeniería, Optimización de código (cuando sea necesario), Refactorización, Principio de la menor sorpresa.
 - En el comit fba23d6 "listo para pruebas finales" hay una version lista mucho mas simple con menos clases pero al tratar de hacerla mas profesional se complico todo un poco mas.
-- 
 
 ## Estructura de archivos
 
@@ -69,17 +68,17 @@ Puedes ejecutar la aplicación desde tu IDE favorito o desde la línea de comand
 
 ## Classes
 1. Paquete com.softek.albertoHaboba_pruebatec1 es el paquete principal y contiene la clase principal:
-         A. albertoHaboba_pruebatec1 (main) en donde corre un ciclo while que es el encargado de dirigir el flujo de la aplicacion mediante un switch anidado con 6 opciones.
+   1. albertoHaboba_pruebatec1 (main) en donde corre un ciclo while que es el encargado de dirigir el flujo de la aplicacion mediante un switch anidado con 6 opciones.
 2. Paquete logica tenemos:
-         A. GestorEmpleados es la clase que concentra y administra todos los metodos para trabajar con la clase empleado.
-         B. Clase Empleado es la clase o molde de los objetos que son usados en la aplicación la cual contiene todos sus atributos.
+   1. GestorEmpleados es la clase que concentra y administra todos los metodos para trabajar con la clase empleado.
+   2. Clase Empleado es la clase o molde de los objetos que son usados en la aplicación la cual contiene todos sus atributos.
 3. Paquete persistencia:
-         A. EmpleadoJPAController es la clase donde estan definidos los metodos JPA que son los encargados de interactuar con la base de datos.
-         B. ControladoraPersistencia es la clase que contiene los emtodos que cree para interactuar con el JPAController y la lagica de mi aplicación.
+   1. EmpleadoJPAController es la clase donde estan definidos los metodos JPA que son los encargados de interactuar con la base de datos.
+   2. ControladoraPersistencia es la clase que contiene los emtodos que cree para interactuar con el JPAController y la lagica de mi aplicación.
 4. ui:
-         A. CapturaDatos es la clase que implementa los formularios para que el usuario capture la informacion del crud y se penso asi ya que varios metodos repiten el mismo proceso de captura de datos para        realizar sus funciones.
-         B. InterfazUsuario es el equivalente al front o la interfaz grafica que en este caso solo implementa en terminal un menu ascii interactivo con su logica para verificar que la opcion elegida sea valida.
-5. persistencia.exceptios clase creada automaticamente por JPA con metodos propios.
+   1. CapturaDatos es la clase que implementa los formularios para que el usuario capture la informacion del crud y se penso asi ya que varios metodos repiten el mismo proceso de captura de datos para        realizar sus funciones.
+   1. InterfazUsuario es el equivalente al front o la interfaz grafica que en este caso solo implementa en terminal un menu ascii interactivo con su logica para verificar que la opcion elegida sea valida.
+5. persistencia.exceptions clase creada automaticamente por JPA con metodos propios.
 
 ## Metodos
 - crearEmpleado llama a capturarEmpleado que a su ves llama 3 veces a capturarDatos, capturarSalario y a capturarFechaIngles para crear una instancia de Empleado que se lo pasa a la ControladoraPersistencia que jama a create de JPA que se conecta a la base de datos y realiza un INSERT.
