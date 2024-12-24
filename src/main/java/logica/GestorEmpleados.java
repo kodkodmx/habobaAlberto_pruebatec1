@@ -8,11 +8,31 @@ import java.util.Scanner;
 import static ui.InterfazUsuario.mostrarOpcionInvalida;
 
 public class GestorEmpleados {
-
+    
+    //No se usa try and catch ya que el que un empleado exista no es una error o excepcion es mas bien parte del flujo normal.
     public static void crearEmpleado(Empleado empleado, ControladoraPersistencia controlPersi) {
-        controlPersi.crearEmpleado(empleado);
-        System.out.println("\n                                  ****************** E M P L E A D O  A G R E G A D O  C O N  E X I T O  *******************");
+        List<Empleado> todos = controlPersi.traerTodos();
+        boolean empleadoExiste = false;
+
+        for (Empleado emp : todos) {
+            if (empleado.getNombre().equals(emp.getNombre()) &&
+                empleado.getApellido().equals(emp.getApellido()) &&
+                empleado.getCargo().equals(emp.getCargo()) &&
+                empleado.getFechaInicio().equals(emp.getFechaInicio())) {
+                empleadoExiste = true;
+                break;
+            }
+        }
+
+        if (empleadoExiste) {
+            mostrarOpcionInvalida();
+            System.out.println("\n                                  *****************************  E M P L E A D O  Y A  E X I S T E  *****************************                ");
+        } else {
+            controlPersi.crearEmpleado(empleado);
+            System.out.println("\n                                  *****************************  E M P L E A D O  A G R E G A D O  C O N  E X I T O  *****************************                ");
+        }
     }
+
 
     public static List<Empleado> consultarTodos(ControladoraPersistencia controlPersi) {
         return controlPersi.traerTodos();
@@ -56,9 +76,9 @@ public class GestorEmpleados {
                     Empleado empleadoModificado = CapturaDatos.capturarEmpleado();
                     empleadoModificado.setId(id);
                     controlPersi.modificarEmpleado(empleadoModificado);
-                    System.out.println("\n                                  ****************** E M P L E A D O  M O D I F I C A D O  C O N  E X I T O *******************");
+                    System.out.println("\n                                  *****************************  E M P L E A D O  M O D I F I C A D O  C O N  E X I T O  *****************************                ");
                 } else {
-                    System.out.println("\n                                  ****************** O P E R A C I O N  D E  M O D I F I C A C I O N  C A N C E L A D A *******************");
+                    System.out.println("\n                                  *****************************  O P E R A C I O N  D E  M O D I F I C A C I O N  C A N C E L A D A  *****************************                ");
                 }
             }            
         }
