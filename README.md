@@ -75,7 +75,7 @@ Puedes ejecutar la aplicación desde tu IDE favorito o desde la línea de comand
 3. Paquete persistencia:
    1. EmpleadoJPAController es la clase donde estan definidos los metodos JPA que son los encargados de interactuar con la base de datos.
    2. ControladoraPersistencia es la clase que contiene los emtodos que cree para interactuar con el JPAController y la lagica de mi aplicación.
-4. ui:
+4. Paquete ui:
    1. CapturaDatos es la clase que implementa los formularios para que el usuario capture la informacion del crud y se penso asi ya que varios metodos repiten el mismo proceso de captura de datos para        realizar sus funciones.
    1. InterfazUsuario es el equivalente al front o la interfaz grafica que en este caso solo implementa en terminal un menu ascii interactivo con su logica para verificar que la opcion elegida sea valida.
 5. persistencia.exceptions clase creada automaticamente por JPA con metodos propios.
