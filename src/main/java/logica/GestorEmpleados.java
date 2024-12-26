@@ -8,19 +8,19 @@ import java.util.Scanner;
 import static ui.InterfazUsuario.mostrarOpcionInvalida;
 
 public class GestorEmpleados {
+    static Scanner teclado = new Scanner(System.in);
     
-    //No se usa try and catch ya que el que un empleado exista no es una error o excepcion es mas bien parte del flujo normal.
     public static void crearEmpleado(Empleado empleado, ControladoraPersistencia controlPersi) {
         List<Empleado> todos = controlPersi.traerTodos();
         boolean empleadoExiste = false;
 
-        for (Empleado emp : todos) {
+        for (Empleado emp : todos) { //No se usa try and catch ya que verificar que un empleado ya exista no es en si una error o excepcion es mas bien parte del flujo normal.
             if (empleado.getNombre().equals(emp.getNombre()) &&
                 empleado.getApellido().equals(emp.getApellido()) &&
                 empleado.getCargo().equals(emp.getCargo()) &&
                 empleado.getFechaInicio().equals(emp.getFechaInicio())) {
                 empleadoExiste = true;
-                break;
+                break; // se justifica el uso de break para detener el ciclo for, una ves que se encuentra que el empleado ya existe.
             }
         }
 
@@ -48,7 +48,7 @@ public class GestorEmpleados {
             }
         }
 
-        try {
+        try { //Se implementa el try-catch para lanzar la excepción, porque así lo sugiere la consigna, aunque no es realmente necesario, ya que no se trata de una excepción en sí.
             if (empleadosPorCargo.isEmpty()) {
                 throw new CargoNoEncontradoException("Ningun empleado actualmente tiene el cargo de " + cargo);
             }
@@ -64,15 +64,16 @@ public class GestorEmpleados {
     public static void modificarEmpleado(int id, ControladoraPersistencia controlPersi) {
         List<Empleado> todos = controlPersi.traerTodos();
         boolean empleadoEncontrado = false;
+
         for (Empleado empleado : todos) {
             if (empleado.getId() == id) {
                 empleadoEncontrado = true;
                 System.out.println(empleado);
                 System.out.print("\n¿Desea modificar este empleado? S/N: ");
-                Scanner teclado = new Scanner(System.in);
                 String modificar = teclado.nextLine();
+
                 if (modificar.equalsIgnoreCase("S")) {
-                    System.out.println("\nCapture los nuevos datos tal y como como desea que queden guardados.");
+                    System.out.println("\nCapture los nuevos datos tal y como desea que queden guardados.");
                     Empleado empleadoModificado = CapturaDatos.capturarEmpleado();
                     empleadoModificado.setId(id);
                     controlPersi.modificarEmpleado(empleadoModificado);
@@ -80,17 +81,22 @@ public class GestorEmpleados {
                 } else {
                     System.out.println("\n                                  *****************************  O P E R A C I O N  D E  M O D I F I C A C I O N  C A N C E L A D A  *****************************                ");
                 }
-            }            
-        }
-        try{
-            if(!empleadoEncontrado){
-                throw new IDNoEncontradoException("Ningun empleado actualmente tiene el ID " + id);
+                break; // Veo justificado su uso ya que el codigo sirve igual sin el break pero ahorra recursos al salir del ciclo una vez procesado el empleado
             }
-        }catch (IDNoEncontradoException e) {
-            mostrarOpcionInvalida();
-            System.out.println(e.getMessage());
+        }
+
+        if (!empleadoEncontrado) {
+            try { //Se implementa el try-catch para lanzar la excepción, porque así lo sugiere la consigna, aunque no es realmente necesario, ya que no se trata de una excepción en sí.
+                throw new IDNoEncontradoException("Ningún empleado actualmente tiene el ID " + id);
+            } catch (IDNoEncontradoException e) {
+                mostrarOpcionInvalida();
+                System.out.println(e.getMessage());
+            }
         }
     }
+
+
+
 
     public static void eliminarEmpleado(int id, ControladoraPersistencia controlPersi) {
         List<Empleado> todos = controlPersi.traerTodos();
@@ -100,21 +106,20 @@ public class GestorEmpleados {
                 empleadoEncontrado = true;
                 System.out.println(empleado);
                 System.out.print("\n¿ESTA SEGURO QUE DESEA ELIMINAR A ESTE EMPLEADO? YA QUE ESTA ACCION ES IRREVERSIBLE S/N: ");
-                Scanner teclado = new Scanner(System.in);
                 String eliminar = teclado.nextLine();
                 if (eliminar.equalsIgnoreCase("S")) {
                     controlPersi.borrarEmpleado(id);
-                    System.out.println("\n                                  *********************** E M P L E A D O  E L I M I N A D O  C O N  E X I T O *******************");
+                    System.out.println("\n                                  *****************************  E M P L E A D O  E L I M I N A D O  C O N  E X I T O  *****************************                ");
                 } else {
-                    System.out.println("\n                                  ****************** O P E R A C I O N  D E  E L I M I N A C I O N  C A N C E L A D A *******************");
+                    System.out.println("\n                                  *****************************  O P E R A C I O N  D E  E L I M I N A C I O N  C A N C E L A D A  *****************************                ");
                 }
             }
         }
-        try{
+        try{ //Se implementa el try-catch para lanzar la excepción, porque así lo sugiere la consigna, aunque no es realmente necesario, ya que no se trata de una excepción en sí.
             if(!empleadoEncontrado){
                 throw new IDNoEncontradoException("Ningun empleado actualmente tiene el ID " + id);
             }
-        }catch (IDNoEncontradoException e) {
+        }catch (IDNoEncontradoException e) { 
             mostrarOpcionInvalida();
             System.out.println(e.getMessage());
         }

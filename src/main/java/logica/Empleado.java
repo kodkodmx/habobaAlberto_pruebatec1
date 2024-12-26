@@ -18,7 +18,7 @@ public class Empleado implements Serializable {
     private String nombre;
     private String apellido;
     private String cargo;
-    @Column(precision = 10, scale = 2) // Necesario especificar como crear la columna para evitar perdida de presicion.
+    @Column(precision = 10, scale = 2) // Necesario especificar los parametros para crear la columna para evitar perdida de presicion.
     private BigDecimal salario;
     private LocalDate fechaIngreso;
 
@@ -84,7 +84,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        String salarioFormateado = String.format("%,.2f", salario.doubleValue());
+        String salarioFormateado = String.format("%,.2f", salario.doubleValue()); //formato con ',' para separar miles y 2 decimales.
         StringBuilder sb = new StringBuilder();
         sb.append("\n * ");
         sb.append("El Empleado con el ID ").append(id);

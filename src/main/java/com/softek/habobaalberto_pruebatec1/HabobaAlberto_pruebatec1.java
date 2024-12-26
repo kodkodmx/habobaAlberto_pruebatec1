@@ -10,11 +10,13 @@ import static ui.InterfazUsuario.*;
 public class HabobaAlberto_pruebatec1 {
 
     public static void main(String[] args) {
-        ControladoraPersistencia controlPersi = new ControladoraPersistencia();
-
+        
         boolean salir = false;
+        int opcion;
+        ControladoraPersistencia controlPersi = new ControladoraPersistencia();
+        
         while (!salir) {
-            int opcion = mostrarMenu();
+            opcion = mostrarMenu();
             switch (opcion) {
                 case 1:
                     Empleado nuevoEmpleado = capturarEmpleado();

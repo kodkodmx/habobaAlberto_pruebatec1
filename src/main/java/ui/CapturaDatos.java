@@ -1,7 +1,6 @@
 package ui;
 
-//Necesario para no perder precicion en la BD
-import java.math.BigDecimal;
+import java.math.BigDecimal; //Usado para no perder precicion en la BD
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,12 +33,12 @@ public class CapturaDatos {
             if (nombre.isEmpty()) {
                 InterfazUsuario.mostrarOpcionVacia();
                 System.out.println("\nEl " + campo + " no puede estar vacío. Intente nuevamente.");
-            } else if (nombre.matches("^[a-zA-Z]+$")) {
+            } else if (nombre.matches("^[a-zA-Z]+( [a-zA-Z]+)*$")) {
                 nombreValido = true;
                 System.out.println("\n" + campo + " ingresado correctamente: " + nombre);
             } else {
                 InterfazUsuario.mostrarOpcionInvalida();
-                System.out.println("\nEl " + campo + " solo puede incluir letras. Intente nuevamente.");
+                System.out.println("\nEl " + campo + " solo puede incluir letras y un espacio separador entre palabras. Intente nuevamente.");
             }
         } while (!nombreValido);
         return nombre;

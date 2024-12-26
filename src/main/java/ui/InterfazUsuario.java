@@ -46,7 +46,6 @@ public class InterfazUsuario {
                 }
             }
         }
-
         return opcion;
     }
 
